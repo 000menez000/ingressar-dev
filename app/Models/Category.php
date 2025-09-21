@@ -11,6 +11,12 @@ class Category extends Model
     protected $primaryKey = "category_id";
     protected $fillable = ["name", "description"];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime'
+    ];
+
     protected function movies()
     {
         return $this->belongsToMany(

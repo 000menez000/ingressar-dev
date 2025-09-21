@@ -10,6 +10,11 @@ class Movie extends Model
     use SoftDeletes;
     protected $primaryKey = 'movie_id';
     protected $fillable = ['title', 'description', 'duration', 'image_url'];
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime'
+    ];
 
     protected function categories()
     {
