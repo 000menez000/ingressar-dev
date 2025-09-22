@@ -24,11 +24,14 @@ class UserController extends Controller
         "email.unique" => "O email já está em uso.",
         "password.confirmed" => "A confirmação de senha não corresponde.",
     ];
+
+    protected $with = ['roles'];
+
     public function index()
     {
-        $users = User::all();
+        $users = User::with('roles')->get();
 
-        dd($users);
+        return response()->json($users);
     }
 
     public function create()
@@ -47,7 +50,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        dd($user);
+        return $user;
     }
 
     public function edit(string $id)
@@ -68,5 +71,5 @@ class UserController extends Controller
     {
         $user->delete();
         return $this->redirectMoviesIndex('Usuário deletado com sucesso.');
-    }
+    }   
 }

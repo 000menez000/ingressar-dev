@@ -14,9 +14,9 @@ class MoviesSeeder extends Seeder
     public function run(): void
     {
         $movies = [
-            ['title' => 'O Exterminador do Futuro', 'description' => 'Clássico de ação e ficção científica.', 'image_url' => 'https://via.placeholder.com/150', 'duration' => 6600, 'categories' => [1]], // Ação
-            ['title' => 'Titanic', 'description' => 'Romance épico a bordo de um navio lendário.', 'image_url' => 'https://via.placeholder.com/150', 'duration' => 11800, 'categories' => [2, 4]], // Romance + Drama
-            ['title' => 'Corra!', 'description' => 'Suspense psicológico e social.', 'image_url' => 'https://via.placeholder.com/150', 'duration' => 6300, 'categories' => [3, 5]], // Suspense + Terror
+            ['title' => 'O Exterminador do Futuro', 'description' => 'Clássico de ação e ficção científica.', 'image_url' => 'https://via.placeholder.com/150', 'duration' => 6600, 'categories' => [1]], 
+            ['title' => 'Titanic', 'description' => 'Romance épico a bordo de um navio lendário.', 'image_url' => 'https://via.placeholder.com/150', 'duration' => 11800, 'categories' => [2, 4]], 
+            ['title' => 'Corra!', 'description' => 'Suspense psicológico e social.', 'image_url' => 'https://via.placeholder.com/150', 'duration' => 6300, 'categories' => [3, 5]],
             ['title' => 'O Poderoso Chefão', 'description' => 'Drama da máfia italiana.', 'image_url' => 'https://via.placeholder.com/150', 'duration' => 10500, 'categories' => [4]],
             ['title' => 'Pânico', 'description' => 'Clássico do terror dos anos 90.', 'image_url' => 'https://via.placeholder.com/150', 'duration' => 6900, 'categories' => [5]],
             ['title' => 'Se Beber, Não Case!', 'description' => 'Comédia de amigos em Las Vegas.', 'image_url' => 'https://via.placeholder.com/150', 'duration' => 6000, 'categories' => [6]],

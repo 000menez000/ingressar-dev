@@ -15,8 +15,13 @@ class Movie extends Model
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime'
     ];
+    protected $with = ['categories'];
+    protected $appends = [
+        'formatted_duration',
+        'description_snippet'
+    ];
 
-    protected function categories()
+    public function categories()
     {
         return $this->belongsToMany(
             Category::class, 
@@ -24,5 +29,20 @@ class Movie extends Model
             'movie_id', 
             'category_id'
         );
+    }
+
+    public function getFormattedDurationAttribute(): string
+    {
+        $hours = floor($this->duration / 3600);
+        $minutes = floor(($this->duration % 3600) / 60);
+        
+        return sprintf('%02d:%02d', $hours, $minutes);
+    }
+
+    public function getDescriptionSnippetAttribute(): string
+    {
+        return strlen($this->description) > 100
+            ? substr($this->description, 0, 100) . '...'
+            : $this->description;
     }
 }

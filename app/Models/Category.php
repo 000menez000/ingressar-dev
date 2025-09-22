@@ -17,7 +17,9 @@ class Category extends Model
         'deleted_at' => 'datetime'
     ];
 
-    protected function movies()
+    protected $hidden = ['pivot'];
+
+    public function movies()
     {
         return $this->belongsToMany(
             Movie::class, 

@@ -13,6 +13,8 @@ class MovieController extends Controller
         "description" => "nullable|string|max:2000",
         "image_url" => "required|url",
         "duration" => "required|integer|min:3600|max:18000",
+        "category_id" => "required/array|min:1",
+        "category_id.*" => "integer|exists:categories,category_id",
     ];
 
     private array $messages = [
@@ -25,8 +27,9 @@ class MovieController extends Controller
 
     public function index()
     {
-        $movies = Movie::all();
-        dd($movies);
+        $movies = Movie::whereHas('categories')->get();
+
+        return response()->json($movies);
     }
 
     public function create()
@@ -36,16 +39,25 @@ class MovieController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate($this->rules, $this->messages);
+        $validated = $request->validate($this->rules, $this->messages);
 
-        Movie::create($request->all());
+        $movie = Movie::create([
+            "title" => $validated["title"],
+            "description" => $validated["description"],
+            "image_url" => $validated["image_url"],
+            "duration" => $validated["duration"],
+        ]);
+
+        $movie
+            ->categories()
+            ->attach($validated["categories"]);
 
         return $this->redirectMoviesIndex('Filme criado com sucesso.');
     }
 
     public function show(Movie $movie)
     {
-        dd($movie);
+        return $movie;
     }
 
     public function edit(Movie $movie)
@@ -55,15 +67,22 @@ class MovieController extends Controller
 
     public function update(Request $request, Movie $movie)
     {
-        $request->validate($this->rules, $this->messages);
+        $validated = $request->validate($this->rules, $this->messages);
 
-        $movie->update($request->all());
+        $movie->update([
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'image_url' => $validated['image_url'],
+            'duration' => $validated['duration'],
+        ]);
+        $movie->categories()->sync($validated['categories']);
 
         return $this->redirectMoviesIndex('Filme atualizado com sucesso.');
     }
 
     public function destroy(Movie $movie)
     {
+        $movie->categories()->detach();
         $movie->delete();
 
         return $this->redirectMoviesIndex('Filme deletado com sucesso.');
