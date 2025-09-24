@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Log;
 
 class MovieController extends Controller
 {
@@ -27,14 +28,16 @@ class MovieController extends Controller
 
     public function index()
     {
-        $movies = Movie::whereHas('categories')->get();
+        $movies = Movie::whereHas('categories')->paginate(10);
 
         return view('movies.index', compact('movies'));
+
+        // return $movies;
     }
 
     public function create()
     {
-        //
+        return view('movies.create');
     }
 
     public function store(Request $request)
@@ -82,8 +85,10 @@ class MovieController extends Controller
 
     public function destroy(Movie $movie)
     {
+        \Log::info("destroy movie", [$movie->movie_id, $movie->title]);
         $movie->categories()->detach();
         $movie->delete();
+
 
         return $this->redirectMoviesIndex('Filme deletado com sucesso.');
     }

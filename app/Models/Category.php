@@ -28,4 +28,13 @@ class Category extends Model
             'movie_id'
         );
     }
+
+    // public function getCategoriesFormatedAttribute(): array
+    // {
+    //     if ($this->categories->isEmpty()) {
+    //         swith
+    //     }
+
+
+    // }
 }
