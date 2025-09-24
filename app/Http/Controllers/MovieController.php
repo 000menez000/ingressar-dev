@@ -29,7 +29,7 @@ class MovieController extends Controller
     {
         $movies = Movie::whereHas('categories')->get();
 
-        return response()->json($movies);
+        return view('movies.index', compact('movies'));
     }
 
     public function create()
