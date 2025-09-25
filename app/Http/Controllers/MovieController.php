@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Log;
+use Symfony\Component\Console\Input\Input;
 
 class MovieController extends Controller
 {
@@ -13,17 +15,17 @@ class MovieController extends Controller
         "title" => "required|string|max:255",
         "description" => "nullable|string|max:2000",
         "image_url" => "required|url",
-        "duration" => "required|integer|min:3600|max:18000",
-        "category_id" => "required/array|min:1",
-        "category_id.*" => "integer|exists:categories,category_id",
+        "duration" => "required|date_format:H:i|before_or_equal:05:00",
+        "category" => "required|array|min:1",
+        "category.*" => "integer|exists:categories,category_id",
     ];
 
     private array $messages = [
         "title.required" => "O título é obrigatório.",
         "image_url.required" => "A URL da imagem é obrigatória.",
         "image_url.url" => "A URL da imagem deve ser uma URL válida.",
-        "duration.min" => "A duração mínima é de 1 hora (3600 segundos).",
-        "duration.max" => "A duração máxima é de 5 horas (18000 segundos).",
+        "duration.date_forma" => "A duração tem que ser no formato HH:MM",
+        "duration.before_or_equal" => "A duração máxima é de 5 horas (05:00).",
     ];
 
     public function index()
@@ -31,29 +33,30 @@ class MovieController extends Controller
         $movies = Movie::whereHas('categories')->paginate(10);
 
         return view('movies.index', compact('movies'));
-
-        // return $movies;
     }
 
     public function create()
     {
-        return view('movies.create');
+        $categories = Category::all();
+        return view('movies.create')->with('categories', $categories);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate($this->rules, $this->messages);
 
+        $duration = $this->convertTimeInSeconds($validated['duration']);
+        
         $movie = Movie::create([
             "title" => $validated["title"],
-            "description" => $validated["description"],
+            "description" => $validated["description"] ?? null,
             "image_url" => $validated["image_url"],
-            "duration" => $validated["duration"],
+            "duration" => $duration,
         ]);
 
         $movie
             ->categories()
-            ->attach($validated["categories"]);
+            ->attach($validated["category"]);
 
         return $this->redirectMoviesIndex('Filme criado com sucesso.');
     }

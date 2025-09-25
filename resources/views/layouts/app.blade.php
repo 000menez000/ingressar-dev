@@ -7,17 +7,17 @@
     <title>HubFlix | @yield('title', 'Home')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-    <header>
+<body class="bg-gray-50 dark:bg-gray-900">
+    <header class="container mx-auto">
         @include('partials.header')
     </header>
 
-    <main>
+    <main class="container mx-auto sm:p-5 antialiased">
+
         @yield('content')
     </main>
     
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
-
 </body>
 </html>

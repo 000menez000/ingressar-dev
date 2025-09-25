@@ -1,4 +1,4 @@
-<nav class="bg-white border-gray-200 dark:bg-gray-900">
+<nav class="bg-white border-gray-200 dark:bg-gray-900 fixed w-full top-0 left-0 z-50 border-b dark:border-gray-700">
   {{-- <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"> --}}
   <div class="w-full flex flex-wrap items-center justify-between px-6 py-4">
     <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">

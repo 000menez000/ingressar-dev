@@ -1,46 +1,197 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="bg-white dark:bg-gray-900">
-    <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new product</h2>
-        <form action="#">
-            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-                <div class="sm:col-span-2">
-                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
-                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
+    <section class="pt-20">
+        <div class="p-8 mx-auto max-w-2xl rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
+            <h1 class="text-3xl font-bold dark:text-white mb-10 ">Cadastrar Filme</h1>
+            <form method="POST" action="{{ route('hubflix.movies.store') }}">
+                @csrf
+                <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                    <div class="sm:col-span-2">
+                        <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título</label>
+                        <input 
+                            type="text" 
+                            name="title" 
+                            id="name" 
+                            class="
+                                @error('title')
+                                    bg-red-50 border 
+                                    border-red-500 
+                                    text-red-900 
+                                    dark:text-red-400 
+                                    placeholder-red-700 
+                                    dark:placeholder-red-500
+                                    focus:ring-red-500 
+                                    focus:border-red-500
+                                    dark:bg-gray-700 
+                                    dark:border-red-500
+                                @else
+                                    bg-gray-50 border 
+                                    border-gray-300 
+                                    text-gray-900 
+                                    focus:ring-primary-600 
+                                    focus:border-primary-600 
+                                    dark:bg-gray-700 
+                                    dark:border-gray-600 
+                                    dark:placeholder-gray-400 
+                                    dark:text-white 
+                                    dark:focus:ring-primary-500 
+                                    dark:focus:border-primary-500
+                                @enderror
+                                block w-full p-2.5 
+                                text-sm rounded-lg 
+                            " 
+                            placeholder="Título do filme aqui" 
+                            required=""
+                            value="{{ old('title') }}"
+                        >
+                        @error('title')
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="w-full">
+                        <label for="duration" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Duração</label>
+                        <input 
+                            type="time" 
+                            name="duration" 
+                            id="price" 
+                            class="
+                                @error('duration')
+                                    bg-red-50 border 
+                                    border-red-500 
+                                    text-red-900 
+                                    dark:text-red-400 
+                                    placeholder-red-700 
+                                    dark:placeholder-red-500
+                                    focus:ring-red-500 
+                                    focus:border-red-500
+                                    dark:bg-gray-700 
+                                    dark:border-red-500
+                                @else
+                                    bg-gray-50 
+                                    border-gray-300 
+                                    text-gray-900 
+                                    focus:ring-primary-600 
+                                    focus:border-primary-600 
+                                    dark:bg-gray-700 
+                                    dark:border-gray-600 
+                                    dark:placeholder-gray-400 
+                                    dark:text-white 
+                                    dark:focus:ring-primary-500 
+                                    dark:focus:border-primary-500
+                                @enderror 
+                                block w-full p-2.5 
+                                text-sm 
+                                rounded-lg 
+                                border
+                            "  
+                            required=""
+                            value="{{ old('duration') }}"
+                        >
+
+                        @error('duration')
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
+                        @enderror
+
+                    </div>
+                    <div>
+                        <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                        <select 
+                            id="category" 
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            name="category"
+                        >
+                            @foreach ($categories as $category)
+                                <option {{ old('category') == $category->category_id ? "selected" : "" }} value="{{ $category->category_id }}">{{ $category->description }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label for="image_url" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">URL da Imagem</label>
+                        <input 
+                            type="text" 
+                            name="image_url" 
+                            id="item-weight" 
+                            class=" 
+                                @error('description')
+                                    bg-red-50 border 
+                                    border-red-500 
+                                    text-red-900 
+                                    dark:text-red-400 
+                                    placeholder-red-700 
+                                    dark:placeholder-red-500
+                                    focus:ring-red-500 
+                                    focus:border-red-500
+                                    dark:bg-gray-700 
+                                    dark:border-red-500
+                                @else
+                                    bg-gray-50 border 
+                                    border-gray-300 
+                                    text-gray-900 
+                                    dark:bg-gray-700 
+                                    dark:border-gray-600 
+                                    dark:placeholder-gray-400 
+                                    dark:text-white 
+                                    dark:focus:ring-primary-500 
+                                    dark:focus:border-primary-500
+                                    focus:ring-primary-600 
+                                    focus:border-primary-600 
+                                @enderror
+                                text-sm rounded-lg 
+                                block w-full p-2.5 
+                                " 
+                            placeholder="https://example.com/image.pnp" 
+                            value="{{ old('image_url') }}"
+                            required=""
+                        >
+
+                        @error('image_url')
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
+                        @enderror
+                    </div> 
+                    <div class="sm:col-span-2">
+                        <label for="description" name="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição</label>
+                        <textarea maxlength="2000" value="{{ old('description') }}" id="description" rows="8" 
+                            class="
+                                @error('image_url')
+                                    bg-red-50 border 
+                                    border-red-500 
+                                    text-red-900 
+                                    dark:text-red-400 
+                                    placeholder-red-700 
+                                    dark:placeholder-red-500
+                                    focus:ring-red-500 
+                                    focus:border-red-500
+                                    dark:bg-gray-700 
+                                    dark:border-red-500
+                                @else
+                                    text-gray-900 
+                                    bg-gray-50 
+                                    border-gray-300 
+                                    focus:ring-primary-500 
+                                    focus:border-primary-500 
+                                    dark:bg-gray-700 
+                                    dark:border-gray-600 
+                                    dark:placeholder-gray-400 
+                                    dark:text-white
+                                    dark:focus:ring-primary-500 
+                                    dark:focus:border-primary-500
+                                @enderror
+                                block 
+                                rounded-lg border 
+                                p-2.5 w-full text-sm 
+                            " 
+                            placeholder="Sua descrição aqui..."></textarea>
+                        
+                        @error('description')
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
-                <div class="w-full">
-                    <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Brand</label>
-                    <input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Product brand" required="">
-                </div>
-                <div class="w-full">
-                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                    <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
-                </div>
-                <div>
-                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                    <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <option selected="">Select category</option>
-                        <option value="TV">TV/Monitors</option>
-                        <option value="PC">PC</option>
-                        <option value="GA">Gaming/Console</option>
-                        <option value="PH">Phones</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="item-weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Item Weight (kg)</label>
-                    <input type="number" name="item-weight" id="item-weight" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="12" required="">
-                </div> 
-                <div class="sm:col-span-2">
-                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                    <textarea id="description" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Your description here"></textarea>
-                </div>
-            </div>
-            <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                Add product
-            </button>
-        </form>
-    </div>
+                <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                    Cadastrar
+                </button>
+            </form>
+        </div>
     </section>
 @endsection
