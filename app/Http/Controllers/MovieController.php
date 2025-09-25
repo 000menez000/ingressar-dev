@@ -16,7 +16,7 @@ class MovieController extends Controller
         "description" => "nullable|string|max:2000",
         "image_url" => "required|url",
         "duration" => "required|date_format:H:i|before_or_equal:05:00",
-        "category" => "required|array|min:1",
+        "category" => "required|min:1",
         "category.*" => "integer|exists:categories,category_id",
     ];
 
@@ -26,11 +26,14 @@ class MovieController extends Controller
         "image_url.url" => "A URL da imagem deve ser uma URL válida.",
         "duration.date_forma" => "A duração tem que ser no formato HH:MM",
         "duration.before_or_equal" => "A duração máxima é de 5 horas (05:00).",
+        "category.exists" => "Não existe ID com essa categoria"
     ];
 
     public function index()
     {
-        $movies = Movie::whereHas('categories')->paginate(10);
+        $movies = Movie::whereHas('categories')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         return view('movies.index', compact('movies'));
     }

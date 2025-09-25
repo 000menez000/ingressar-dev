@@ -51,47 +51,58 @@
                     </div>
                     <div class="w-full">
                         <label for="duration" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Duração</label>
-                        <input 
-                            type="time" 
-                            name="duration" 
-                            id="price" 
-                            class="
-                                @error('duration')
-                                    bg-red-50 border 
-                                    border-red-500 
-                                    text-red-900 
-                                    dark:text-red-400 
-                                    placeholder-red-700 
-                                    dark:placeholder-red-500
-                                    focus:ring-red-500 
-                                    focus:border-red-500
-                                    dark:bg-gray-700 
-                                    dark:border-red-500
-                                @else
-                                    bg-gray-50 
-                                    border-gray-300 
-                                    text-gray-900 
-                                    focus:ring-primary-600 
-                                    focus:border-primary-600 
-                                    dark:bg-gray-700 
-                                    dark:border-gray-600 
-                                    dark:placeholder-gray-400 
-                                    dark:text-white 
-                                    dark:focus:ring-primary-500 
-                                    dark:focus:border-primary-500
-                                @enderror 
-                                block w-full p-2.5 
-                                text-sm 
-                                rounded-lg 
-                                border
-                            "  
-                            required=""
-                            value="{{ old('duration') }}"
-                        >
+                        
 
                         @error('duration')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
                         @enderror
+
+                        <div class="relative">
+                            <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <input 
+                                type="time" 
+                                name="duration" 
+                                id="price" 
+                                class="
+                                    @error('duration')
+                                        bg-red-50 border 
+                                        border-red-500 
+                                        text-red-900 
+                                        dark:text-red-400 
+                                        placeholder-red-700 
+                                        dark:placeholder-red-500
+                                        focus:ring-red-500 
+                                        focus:border-red-500
+                                        dark:bg-gray-700 
+                                        dark:border-red-500
+                                    @else
+                                        bg-gray-50 
+                                        border-gray-300 
+                                        text-gray-900 
+                                        focus:ring-primary-600 
+                                        focus:border-primary-600 
+                                        dark:bg-gray-700 
+                                        dark:border-gray-600 
+                                        dark:placeholder-gray-400 
+                                        dark:text-white 
+                                        dark:focus:ring-primary-500 
+                                        dark:focus:border-primary-500
+                                    @enderror 
+                                    block w-full p-2.5 
+                                    text-sm 
+                                    rounded-lg 
+                                    border
+                                    leading-none
+                                "  
+                                required=""
+                                max="05:00"
+                                value="{{ old('duration') ?? '00:00' }}"
+                            >
+                        </div>
 
                     </div>
                     <div>
@@ -151,7 +162,7 @@
                     </div> 
                     <div class="sm:col-span-2">
                         <label for="description" name="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição</label>
-                        <textarea maxlength="2000" value="{{ old('description') }}" id="description" rows="8" 
+                        <textarea name="description" maxlength="2000" value="{{ old('description') }}" id="description" rows="8" 
                             class="
                                 @error('image_url')
                                     bg-red-50 border 
