@@ -15,28 +15,9 @@
                             id="name" 
                             class="
                                 @error('title')
-                                    bg-red-50 border 
-                                    border-red-500 
-                                    text-red-900 
-                                    dark:text-red-400 
-                                    placeholder-red-700 
-                                    dark:placeholder-red-500
-                                    focus:ring-red-500 
-                                    focus:border-red-500
-                                    dark:bg-gray-700 
-                                    dark:border-red-500
+                                    @include('partials.ui.input.styles.input-error')
                                 @else
-                                    bg-gray-50 border 
-                                    border-gray-300 
-                                    text-gray-900 
-                                    focus:ring-primary-600 
-                                    focus:border-primary-600 
-                                    dark:bg-gray-700 
-                                    dark:border-gray-600 
-                                    dark:placeholder-gray-400 
-                                    dark:text-white 
-                                    dark:focus:ring-primary-500 
-                                    dark:focus:border-primary-500
+                                    @include('partials.ui.input.styles.input-normal')
                                 @enderror
                                 block w-full p-2.5 
                                 text-sm rounded-lg 
@@ -46,17 +27,12 @@
                             value="{{ old('title') }}"
                         >
                         @error('title')
-                            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
+                            @include('partials.ui.input.input-msg-error', ["message" => $message])
                         @enderror
                     </div>
                     <div class="w-full">
                         <label for="duration" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Duração</label>
                         
-
-                        @error('duration')
-                            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
-                        @enderror
-
                         <div class="relative">
                             <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -69,28 +45,9 @@
                                 id="price" 
                                 class="
                                     @error('duration')
-                                        bg-red-50 border 
-                                        border-red-500 
-                                        text-red-900 
-                                        dark:text-red-400 
-                                        placeholder-red-700 
-                                        dark:placeholder-red-500
-                                        focus:ring-red-500 
-                                        focus:border-red-500
-                                        dark:bg-gray-700 
-                                        dark:border-red-500
+                                        @include('partials.ui.input.styles.input-error')
                                     @else
-                                        bg-gray-50 
-                                        border-gray-300 
-                                        text-gray-900 
-                                        focus:ring-primary-600 
-                                        focus:border-primary-600 
-                                        dark:bg-gray-700 
-                                        dark:border-gray-600 
-                                        dark:placeholder-gray-400 
-                                        dark:text-white 
-                                        dark:focus:ring-primary-500 
-                                        dark:focus:border-primary-500
+                                        @include('partials.ui.input.styles.input-normal')
                                     @enderror 
                                     block w-full p-2.5 
                                     text-sm 
@@ -103,6 +60,11 @@
                                 value="{{ old('duration') ?? '00:00' }}"
                             >
                         </div>
+
+                        
+                        @error('duration')
+                            @include('partials.ui.input.input-msg-error', ["message" => $message])
+                        @enderror
 
                     </div>
                     <div>
@@ -124,29 +86,10 @@
                             name="image_url" 
                             id="item-weight" 
                             class=" 
-                                @error('description')
-                                    bg-red-50 border 
-                                    border-red-500 
-                                    text-red-900 
-                                    dark:text-red-400 
-                                    placeholder-red-700 
-                                    dark:placeholder-red-500
-                                    focus:ring-red-500 
-                                    focus:border-red-500
-                                    dark:bg-gray-700 
-                                    dark:border-red-500
+                                @error('image_url')
+                                    @include('partials.ui.input.styles.input-error')
                                 @else
-                                    bg-gray-50 border 
-                                    border-gray-300 
-                                    text-gray-900 
-                                    dark:bg-gray-700 
-                                    dark:border-gray-600 
-                                    dark:placeholder-gray-400 
-                                    dark:text-white 
-                                    dark:focus:ring-primary-500 
-                                    dark:focus:border-primary-500
-                                    focus:ring-primary-600 
-                                    focus:border-primary-600 
+                                    @include('partials.ui.input.styles.input-normal')
                                 @enderror
                                 text-sm rounded-lg 
                                 block w-full p-2.5 
@@ -157,7 +100,7 @@
                         >
 
                         @error('image_url')
-                            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
+                            @include('partials.ui.input.input-msg-error', ["message" => $message])
                         @enderror
                     </div> 
                     <div class="sm:col-span-2">
@@ -165,28 +108,9 @@
                         <textarea name="description" maxlength="2000" value="{{ old('description') }}" id="description" rows="8" 
                             class="
                                 @error('image_url')
-                                    bg-red-50 border 
-                                    border-red-500 
-                                    text-red-900 
-                                    dark:text-red-400 
-                                    placeholder-red-700 
-                                    dark:placeholder-red-500
-                                    focus:ring-red-500 
-                                    focus:border-red-500
-                                    dark:bg-gray-700 
-                                    dark:border-red-500
+                                    @include('partials.ui.input.styles.input-error')
                                 @else
-                                    text-gray-900 
-                                    bg-gray-50 
-                                    border-gray-300 
-                                    focus:ring-primary-500 
-                                    focus:border-primary-500 
-                                    dark:bg-gray-700 
-                                    dark:border-gray-600 
-                                    dark:placeholder-gray-400 
-                                    dark:text-white
-                                    dark:focus:ring-primary-500 
-                                    dark:focus:border-primary-500
+                                    @include('partials.ui.input.styles.input-normal')
                                 @enderror
                                 block 
                                 rounded-lg border 
@@ -195,10 +119,11 @@
                             placeholder="Sua descrição aqui..."></textarea>
                         
                         @error('description')
-                            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
+                            @include('partials.ui.input.input-msg-error', ["message" => $message])
                         @enderror
                     </div>
                 </div>
+                
                 <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
                     Cadastrar
                 </button>

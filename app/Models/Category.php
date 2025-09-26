@@ -19,6 +19,8 @@ class Category extends Model
 
     protected $hidden = ['pivot'];
 
+    protected $appends = ["color_categories"];
+
     public function movies()
     {
         return $this->belongsToMany(
@@ -29,12 +31,37 @@ class Category extends Model
         );
     }
 
-    // public function getCategoriesFormatedAttribute(): array
-    // {
-    //     if ($this->categories->isEmpty()) {
-    //         swith
-    //     }
+    public function getColorsCategoriesAttribute(): array
+    {
+        if ($this->categories->isEmpty()) {
+            $color = [];
 
+            switch ($this->name)
+            {
+                case "acao":
+                    $color = [$this->name => "bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-300"];
+                    break;
+                case "romance":
+                    $color = [$this->name => "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300"];
+                    break;
+                case "suspense  ":
+                    $color = [$this->name => "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"];
+                    break;
+                case "drama":
+                    $color = [$this->name => "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300"];
+                    break;
+                case "terror":
+                    $color = [$this->name => "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"];
+                    break;
+                case "comedia":
+                    $color = [$this->name => "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300"];
+                    break;
 
-    // }
+            }
+        
+            return $color;
+        }
+
+        return [];
+    }
 }
