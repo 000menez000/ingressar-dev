@@ -1,5 +1,6 @@
 <button 
     type="button" 
+    onclick="window.location='{{ route('hubflix.movies.edit', $movie) }}'"
     data-drawer-target="drawer-update-product-{{ $modal }}" 
     data-drawer-show="drawer-update-product-{{ $modal }}"
     aria-controls="drawer-update-product"

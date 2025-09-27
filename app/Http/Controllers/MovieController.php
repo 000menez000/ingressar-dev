@@ -71,20 +71,22 @@ class MovieController extends Controller
 
     public function edit(Movie $movie)
     {
-        dd($movie);
+        $categories = Category::all();
+        return view('movies.edit', ["movie" => $movie, "categories" => $categories]);
     }
 
     public function update(Request $request, Movie $movie)
     {
         $validated = $request->validate($this->rules, $this->messages);
+        $duration = $this->convertTimeInSeconds($validated['duration']);
 
         $movie->update([
             'title' => $validated['title'],
             'description' => $validated['description'],
             'image_url' => $validated['image_url'],
-            'duration' => $validated['duration'],
+            'duration' => $duration,
         ]);
-        $movie->categories()->sync($validated['categories']);
+        $movie->categories()->sync($validated['category']);
 
         return $this->redirectMoviesIndex('Filme atualizado com sucesso.');
     }

@@ -533,7 +533,7 @@
                               <td class="px-4 py-3 text-center">{{ $movie->formatted_duration }}</td>
                               <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                  <div class="flex items-center space-x-4">
-                                       @include('partials.ui.buttons.button-edit', ["modal" => $movie->movie_id, "name" => "Editar"])
+                                       @include('partials.ui.buttons.button-edit', ["modal" => $movie->movie_id, "data" => $movie, "name" => "Editar"])
                                        @include('partials.ui.buttons.button-preview', ["modal" => $movie->movie_id, "name" => "Preview"])
                                        @include('partials.ui.buttons.button-del', ["modal" => $movie->movie_id, "name" => "Deletar", "icon" => true])
 
