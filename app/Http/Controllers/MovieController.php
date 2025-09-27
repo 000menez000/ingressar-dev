@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Movie;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Log;
+use PharIo\Version\BuildMetaData;
 use Symfony\Component\Console\Input\Input;
 
 class MovieController extends Controller
@@ -29,9 +31,28 @@ class MovieController extends Controller
         "category.exists" => "Não existe ID com essa categoria"
     ];
 
-    public function index()
+    private function applySearch(string $search, Builder $query)
     {
-        $movies = Movie::whereHas('categories')
+        $search = trim((string) $search);			
+
+        $query->when($search, function (Builder $query, $search) {
+            $query->where("title", "LIKE", "%{$search}%");
+        });
+    }
+
+    public function index(Request $request)
+    {
+        $movieQuery = Movie::query();
+
+        if(isset($request["search"]) && !empty($request["search"])) {
+            $this->applySearch($request["search"], $movieQuery);
+        }
+
+        // if (isset($request["nivel"])) {
+        //     $this->applyNivelFilter($request["nivel"], $cursoQuery);
+        // }
+
+        $movies = $movieQuery->whereHas('categories')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
@@ -66,7 +87,7 @@ class MovieController extends Controller
 
     public function show(Movie $movie)
     {
-        return $movie;
+        return view('movies.view')->with("movie", $movie);
     }
 
     public function edit(Movie $movie)
@@ -93,7 +114,6 @@ class MovieController extends Controller
 
     public function destroy(Movie $movie)
     {
-        \Log::info("destroy movie", [$movie->movie_id, $movie->title]);
         $movie->categories()->detach();
         $movie->delete();
 
