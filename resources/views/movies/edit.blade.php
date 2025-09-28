@@ -76,7 +76,7 @@
                             name="category"
                         >
                             @foreach ($categories as $category)
-                                <option {{ old('category') == $category->category_id || $movie->category_id ? "selected" : "" }} value="{{ $category->category_id }}">{{ $category->description }}</option>
+                                <option {{ old('category', $movie->categories[0]->category_id) == $category->category_id ? "selected" : "" }} value="{{ $category->category_id }}">{{ $category->description }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -177,7 +177,7 @@
                     </button>
                     <button 
                         type="button" 
-                        onclick="window.location='{{ route('hubflix.movies.index') }}'"
+                        onclick="window.location='{{ route('hubflix.movies.index') }}?page={{ $pagePrevious }}'"
                         class="
                             inline-flex 
                             items-center 
@@ -195,7 +195,8 @@
                             focus:ring-red-200 
                             dark:focus:ring-red-900 
                             hover:bg-red-800"
-                        >Cancelar
+                        >
+                        Cancelar
                     </button>
                 </div>
             </form>
@@ -205,5 +206,5 @@
 
 
 {{-- @php
-    dd($movie)
+    dd($movie->categories[0]->category_id)
 @endphp --}}

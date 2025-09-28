@@ -6,9 +6,7 @@ use App\Models\Category;
 use App\Models\Movie;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Log;
-use PharIo\Version\BuildMetaData;
-use Symfony\Component\Console\Input\Input;
+
 
 class MovieController extends Controller
 {
@@ -40,6 +38,17 @@ class MovieController extends Controller
         });
     }
 
+    private function applyCategoryFilter(array $categories, Builder $query)
+    {
+        if (empty($categories) || in_array('all', $categories)) {
+            return;
+        }
+
+        $query->whereHas('firstCategory', function ($q) use ($categories) {
+            $q->whereIn('categories.category_id', $categories);
+        });
+    }
+
     public function index(Request $request)
     {
         $movieQuery = Movie::query();
@@ -48,21 +57,30 @@ class MovieController extends Controller
             $this->applySearch($request["search"], $movieQuery);
         }
 
-        // if (isset($request["nivel"])) {
-        //     $this->applyNivelFilter($request["nivel"], $cursoQuery);
-        // }
+        if (isset($request["category"])) {
+            $this->applyCategoryFilter($request["category"], $movieQuery);
+        }
 
         $movies = $movieQuery->whereHas('categories')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('movies.index', compact('movies'));
+        $categories = Category::all();
+
+        return view('movies.index', compact('movies', 'categories'));
     }
 
     public function create()
     {
+        $url = (string) url()->previous();
+        $page = $this->getPageFromURL($url);
+
         $categories = Category::all();
-        return view('movies.create')->with('categories', $categories);
+
+        return view('movies.create', [
+            'pagePrevious' => $page,
+            'categories' => $categories, 
+        ]);
     }
 
     public function store(Request $request)
@@ -92,8 +110,16 @@ class MovieController extends Controller
 
     public function edit(Movie $movie)
     {
+        $url = (string) url()->previous();
+        $page = $this->getPageFromURL($url) ?? "1";
+
         $categories = Category::all();
-        return view('movies.edit', ["movie" => $movie, "categories" => $categories]);
+
+        return view('movies.edit', [
+            "pagePrevious" => $page,
+            "movie" => $movie, 
+            "categories" => $categories, 
+        ]);
     }
 
     public function update(Request $request, Movie $movie)

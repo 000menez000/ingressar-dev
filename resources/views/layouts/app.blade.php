@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>HubFlix | @yield('title', 'Home')</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite([
+        'resources/css/app.css', 
+        'resources/js/app.js',
+        'resources/js/app/filters.js'
+    ])
 </head>
 <body class="bg-gray-50 dark:bg-gray-900">
     <header class="container mx-auto">

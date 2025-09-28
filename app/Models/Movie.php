@@ -30,6 +30,18 @@ class Movie extends Model
         );
     }
 
+    public function firstCategory()
+    {
+        return $this->belongsToMany(
+            Category::class, 
+            'category_movie', 
+            'movie_id', 
+            'category_id'
+        )
+            ->orderBy('category_movie.category_id', 'asc')
+            ->limit(1);
+    }
+
     public function getFormattedDurationAttribute(): string
     {
         $hours = floor($this->duration / 3600);
