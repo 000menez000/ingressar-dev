@@ -7,7 +7,7 @@
     </a>
     
     {{-- USER BUTTON --}}
-    <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+    {{-- <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
       <button type="button"
         class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
         id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
@@ -45,6 +45,6 @@
             d="M1 1h15M1 7h15M1 13h15" />
         </svg>
       </button>
-    </div>
+    </div> --}}
   </div>
 </nav>

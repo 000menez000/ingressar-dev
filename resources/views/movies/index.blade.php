@@ -32,12 +32,12 @@
                      </div>
                   </div>
                   <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                     @include('partials.ui.filter-dropdown', ["categories" => $categories])
+                     @include('movies.filter-dropdown', ["categories" => $categories])
                   </div>
                </form>
                <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end gap-3 flex-shrink-0">
-                  @include('partials.ui.buttons.button-add', ["name" => "Adicionar", "icon" => true])
-                  @include('partials.ui.buttons.button-del', ['name' => 'Deletar', 'icon' => true, 'modal' => 'selected'])
+                  @include('movies.buttons.button-add', ["name" => "Adicionar", "icon" => true])
+                  @include('movies.buttons.button-del', ['name' => 'Deletar', 'icon' => true, 'modal' => 'selected'])
 
                   <!-- Delete Modal -->
                   @include('partials.ui.modals.delete-modal', ["modal" => 'selected'])
@@ -54,8 +54,10 @@
                      <tr>
                            <th scope="col" class="p-4">
                               <div class="flex items-center">
-                                 <input id="checkbox-all" type="checkbox"
-                                       class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                 <input 
+                                    id="checkbox-all" 
+                                    type="checkbox"
+                                    class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                  <label for="checkbox-all" class="sr-only">checkbox</label>
                               </div>
                            </th>
@@ -71,18 +73,17 @@
                            <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                               <td class="p-4 w-4">
                                  <div class="flex items-center">
-                                       <input id="checkbox-table-search-{{$i}}" type="checkbox"
+                                       <input id="checkbox-table-search-{{ $movie->movie_id }}" 
+                                          name="selected_movies[]" 
+                                          value="{{ $movie->movie_id }}"   
+                                          type="checkbox"
                                           onclick="event.stopPropagation()"
-                                          class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                       <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                          class="checkbox-row w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                       <label for="checkbox-table-search-{{ $movie->movie_id }}" class="sr-only">checkbox</label>
                                  </div>
                               </td>
                               <th scope="row"
                                  class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                 {{-- <div class="flex items-center mr-3">
-                                       <img src="{{ $movie->image_url }}" alt="" class="h-8 w-auto mr-3">
-                                       {{ $movie->title }}
-                                 </div> --}}
                                  <div class="flex items-center mr-3">
                                     <img src="{{ $movie->image_url }}" 
                                           alt="{{ $movie->title }}" 
@@ -112,8 +113,8 @@
                               <td class="px-4 py-3 text-center">{{ $movie->formatted_duration }}</td>
                               <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                  <div class="flex items-center space-x-4">
-                                       @include('partials.ui.buttons.button-edit', ["modal" => $movie->movie_id, "data" => $movie, "name" => "Editar"])
-                                       @include('partials.ui.buttons.button-del', ["modal" => $movie->movie_id, "name" => "Deletar", "icon" => true])
+                                       @include('movies.buttons.button-edit', ["modal" => $movie->movie_id, "data" => $movie, "name" => "Editar"])
+                                       @include('movies.buttons.button-del', ["modal" => $movie->movie_id, "name" => "Deletar", "icon" => true])
 
                                        @include('partials.ui.modals.delete-modal', ["modal" => $movie->movie_id ])
 
@@ -143,7 +144,3 @@
    </div>
 </section>
 @endsection
-
-{{-- @php
-   dd($movies)
-@endphp --}}
