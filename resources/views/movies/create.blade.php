@@ -123,10 +123,34 @@
                         @enderror
                     </div>
                 </div>
-                
-                <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                    Cadastrar
-                </button>
+                <div class="flex gap-4">
+                    <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                        Cadastrar
+                    </button>
+                    <button 
+                        type="button" 
+                        onclick="window.location='{{ route('hubflix.movies.index') }}?page={{ $pagePrevious }}'"
+                        class="
+                            inline-flex 
+                            items-center 
+                            px-5 
+                            py-2.5 
+                            mt-4 
+                            sm:mt-6 
+                            text-sm 
+                            font-medium 
+                            text-center 
+                            text-white 
+                            bg-red-700 
+                            rounded-lg 
+                            focus:ring-4 
+                            focus:ring-red-200 
+                            dark:focus:ring-red-900 
+                            hover:bg-red-800"
+                        >
+                        Cancelar
+                    </button>
+                </div>
             </form>
         </div>
     </section>

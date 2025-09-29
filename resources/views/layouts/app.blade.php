@@ -8,7 +8,8 @@
     @vite([
         'resources/css/app.css', 
         'resources/js/app.js',
-        'resources/js/app/filters.js'
+        'resources/js/app/filters.js',
+        'resources/js/app/table-movies.js'
     ])
 </head>
 <body class="bg-gray-50 dark:bg-gray-900">

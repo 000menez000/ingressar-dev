@@ -14,7 +14,7 @@ class MovieController extends Controller
     private array $rules = [
         "title" => "required|string|max:255",
         "description" => "nullable|string|max:2000",
-        "image_url" => "required|url",
+        "image_url" => "required|url|max:1300",
         "duration" => "required|date_format:H:i|before_or_equal:05:00",
         "category" => "required|min:1",
         "category.*" => "integer|exists:categories,category_id",
@@ -44,7 +44,7 @@ class MovieController extends Controller
             return;
         }
 
-        $query->whereHas('firstCategory', function ($q) use ($categories) {
+        $query->whereHas('categories', function ($q) use ($categories) {
             $q->whereIn('categories.category_id', $categories);
         });
     }

@@ -67,11 +67,11 @@
                      </tr>
                   </thead>
                   <tbody>
-                     @foreach ($movies as $movie)
+                     @foreach ($movies as $i => $movie)
                            <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                               <td class="p-4 w-4">
                                  <div class="flex items-center">
-                                       <input id="checkbox-table-search-1" type="checkbox"
+                                       <input id="checkbox-table-search-{{$i}}" type="checkbox"
                                           onclick="event.stopPropagation()"
                                           class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
@@ -79,9 +79,15 @@
                               </td>
                               <th scope="row"
                                  class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                 <div class="flex items-center mr-3">
+                                 {{-- <div class="flex items-center mr-3">
                                        <img src="{{ $movie->image_url }}" alt="" class="h-8 w-auto mr-3">
                                        {{ $movie->title }}
+                                 </div> --}}
+                                 <div class="flex items-center mr-3">
+                                    <img src="{{ $movie->image_url }}" 
+                                          alt="{{ $movie->title }}" 
+                                          class="h-12 w-12 rounded-md object-cover mr-3">
+                                    {{ $movie->title }}
                                  </div>
                               </th>
                               <td class="px-4 py-3">
@@ -107,7 +113,6 @@
                               <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                  <div class="flex items-center space-x-4">
                                        @include('partials.ui.buttons.button-edit', ["modal" => $movie->movie_id, "data" => $movie, "name" => "Editar"])
-                                       @include('partials.ui.buttons.button-preview', ["modal" => $movie->movie_id, "name" => "Preview"])
                                        @include('partials.ui.buttons.button-del', ["modal" => $movie->movie_id, "name" => "Deletar", "icon" => true])
 
                                        @include('partials.ui.modals.delete-modal', ["modal" => $movie->movie_id ])
