@@ -24,8 +24,8 @@
                 <form method="POST" action="{{ route('hubflix.movies.destroy', $modal) }}"> 
                     @csrf
                     @method('DELETE')
-                    @include('partials.ui.buttons.button-danger', ["type" => "submit"])
-                    @include('partials.ui.buttons.button-cancel-modal', ["modal" => $modal, "type" => "button"])
+                    @include('movies.buttons.button-danger', ["type" => "submit"])
+                    @include('movies.buttons.button-cancel-modal', ["modal" => $modal, "type" => "button"])
                 </form>
             </div>
         </div>

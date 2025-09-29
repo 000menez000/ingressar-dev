@@ -102,12 +102,13 @@
                         @error('image_url')
                             @include('partials.ui.input.input-msg-error', ["message" => $message])
                         @enderror
+
                     </div> 
                     <div class="sm:col-span-2">
                         <label for="description" name="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição</label>
                         <textarea name="description" maxlength="2000" value="{{ old('description') }}" id="description" rows="8" 
                             class="
-                                @error('image_url')
+                                @error('description')
                                     @include('partials.ui.input.styles.input-error')
                                 @else
                                     @include('partials.ui.input.styles.input-normal')

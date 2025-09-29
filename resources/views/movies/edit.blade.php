@@ -135,7 +135,7 @@
                             id="description" 
                             rows="8" 
                             class="
-                                @error('image_url')
+                                @error('description')
                                     @include('partials.ui.input.styles.input-error')
                                 @else
                                     @include('partials.ui.input.styles.input-normal')
