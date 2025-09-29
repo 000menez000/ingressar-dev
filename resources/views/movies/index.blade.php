@@ -137,7 +137,10 @@
                </span>
                 
                <div class="inline-flex items-stretch -space-x-px">
-                  {{ $movies->onEachSide(1)->links('pagination::tailwind')}}
+                  {{ $movies->appends([
+                     'search' => request('search'),
+                     'category' => request('category')
+                  ])->onEachSide(1)->links('pagination::tailwind')}}
                </div>
          </nav>
       </div>
